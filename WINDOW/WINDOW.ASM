@@ -273,7 +273,7 @@ PrintBox	proc
 		cmp dh, 00h
 		je @@EndL1
 
-@@Loop1:	add di, bx
+@@cntrPrnt:	add di, bx
 
 		LEFTLN   = [Preset + 2];0BAh
 		CENTERLN = ' '
@@ -282,9 +282,9 @@ PrintBox	proc
 		.PrintLine
 
 		dec dh
-		jne @@Loop1
+		jne @@cntrPrnt
 
-@@EndL1:	add di, bx
+@@EndCntrPrnt:	add di, bx
 
 		LEFTLN   = [Preset + 5];0C8h
 		CENTERLN = [Preset + 1];0CDh
