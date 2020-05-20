@@ -85,23 +85,23 @@ StrLen		proc
 
 
 ;================================================
-; In:    ES:[DI] - Start string of symbols
-;        AL      - Value to be found
-; Out:   ES:[DI] = first include or end of string
+; In:    DS:[SI] - Start string of symbols
+;        AH      - Value to be found
+; Out:   DS:[SI] = first include or end of string
 ; Destr: DI, CX
 ;================================================
 StrChr		proc
 
-@@Loop1:	cmp byte ptr es:[di], 00h
+@@Loop1:	lodsb
+
+		cmp al, 00h
 		je @@Exit
 
-		cmp es:[di], al
-		je @@Exit
+		cmp al, ah
+		jne @@Loop1
 
-		inc di
-		jmp @@Loop1
-
-@@Exit:		ret
+@@Exit:		dec si
+		ret
 		endp
 
 
