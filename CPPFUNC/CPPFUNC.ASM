@@ -64,6 +64,7 @@ MemCpy		proc
 ; In:    ES:[DI] - Start string of symbols
 ; Out:   CX = Length of string
 ;        AL = 0
+;        ES:[DI] = First symbol after 00h
 ; Destr: CX, DI, AL, DF
 ;================================================
 StrLen		proc
