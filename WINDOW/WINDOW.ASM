@@ -61,7 +61,7 @@ org 100h
 ;================================================
 ; In:    DL - Line length (<= 80)
 ;
-; Out:   APOffset = After print offset
+; Out:   bx = After print offset
 ; Destr: BX, AX
 ;================================================
 .CalcAPOffset	macro
@@ -200,6 +200,19 @@ Start:		mov bx, ARGSLN
 
 		.ReadNum dh
 		.ReadNum dl
+		
+		push dx
+		
+		.ReadNum dh
+
+		mov si, offset Preset
+		
+		mov ax, PRESETLEN
+		mul dh
+
+		add si, ax
+
+		pop dx
 
 		pop bx
 
@@ -244,6 +257,7 @@ Preset		db 28h, 0CDh, 0BAh, 0C9h, 0BBh, 0C8h, 0BCh
 ;        DH - Height (> 2d)
 ;        DL - Width  (> 2d)
 ;        AH - Color of the box
+;        SI - Pointer on first bite of preset
 ; Destr: AL, BX, CX, DX, DI, DF, ES
 ;================================================
 PrintBox	proc
@@ -264,9 +278,9 @@ PrintBox	proc
 
 		pop ax
 
-		LEFTLN   = [Preset + 3];0C9h
-		CENTERLN = [Preset + 1];0CDh
-		RIGHTLN  = [Preset + 4];0BBh
+		LEFTLN   = [si + 3];0C9h
+		CENTERLN = [si + 1];0CDh
+		RIGHTLN  = [si + 4];0BBh
 
 		.PrintLine
 
@@ -275,9 +289,9 @@ PrintBox	proc
 
 @@cntrPrnt:	add di, bx
 
-		LEFTLN   = [Preset + 2];0BAh
+		LEFTLN   = [si + 2];0BAh
 		CENTERLN = ' '
-		RIGHTLN  = [Preset + 2];0BAh
+		RIGHTLN  = [si + 2];0BAh
 
 		.PrintLine
 
@@ -286,9 +300,9 @@ PrintBox	proc
 
 @@EndCntrPrnt:	add di, bx
 
-		LEFTLN   = [Preset + 5];0C8h
-		CENTERLN = [Preset + 1];0CDh
-		RIGHTLN  = [Preset + 6];0BCh
+		LEFTLN   = [si + 5];0C8h
+		CENTERLN = [si + 1];0CDh
+		RIGHTLN  = [si + 6];0BCh
 
 		.PrintLine
 
