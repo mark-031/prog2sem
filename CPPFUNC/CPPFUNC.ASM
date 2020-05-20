@@ -129,19 +129,20 @@ StrrChr		proc
 
 
 ;================================================
-; In:    ES:[DI] - Start string of symbols to copt to
+; In:    ES:[DI] - Start string of symbols to copy to
 ;        DS:[SI] - Start string of symbols to copy from
-; Destr: DI, SI, DF
+; Destr: AL, DI, SI, DF
 ;================================================
 StrCpy		proc
 
 		cld
 
-@@Loop1:	cmp ds:[si], 00h
+@@cpyLoop:	lodsb
+		cmp al, 00h
 		je @@Exit
 
-		movsb
-		jmp @@Loop1
+		stosb
+		jmp @@cpyLoop
 
 @@Exit:		ret
 		endp
