@@ -285,7 +285,7 @@ PrintBox	proc
 		.PrintLine
 
 		cmp dh, 00h
-		je @@EndL1
+		je @@EndCntrPrnt
 
 @@cntrPrnt:	add di, bx
 
