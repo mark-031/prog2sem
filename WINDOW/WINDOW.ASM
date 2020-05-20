@@ -230,7 +230,7 @@ Start:		mov bx, ARGSLN
 
 		push ax
 
-		mov ah, [Preset]
+		mov ah, [si]
 
 		call PrintBox
 	
