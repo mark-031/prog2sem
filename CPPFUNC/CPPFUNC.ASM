@@ -158,14 +158,11 @@ StrCmp		proc
 
 		cld
 
-@@Loop1:	cmp es:[di], 00h
+@@cmpLoop:	cmp es:[di], 00h
 		je @@alOne
 
-		cmp ds:[si], 00h
-		je @@alMOne
-
 		cmpsb
-		je @@Loop1
+		je @@cmpLoop
 		jl @@alMOne
 
 @@alOne:	xor al, al
