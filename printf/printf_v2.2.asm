@@ -137,16 +137,16 @@ Printf:
 
 	_setOne rax 		; RAX = 1
 	_setOne rdi 		; RDI = 1
-		;_setOne rdx 		; RDX = 
 
 	xor rdx, rdx
 
 ;while([R10+RDX] != 0){
 .main:
-	cmp BYTE [r10 + rdx], 0x00 	;
+	mov bl, [r10 + rdx]
+	cmp bl, 0x00
 	je .exit
 
-	cmp BYTE [r10 + rdx], '%'	;
+	cmp bl, '%'
 	je .convSpecProcess
 
 	inc rdx
