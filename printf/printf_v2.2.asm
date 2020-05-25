@@ -133,7 +133,7 @@ PrintNum:
 
 ;================================================
 ; In:    R10 = Start of line
-; Destr: RAX, BL, RCX, RDX, RSI, RDI, R10, R11, R12B, R13, R15
+; Destr: RAX, BL, RCX, RDX, RSI, RDI, R10, R11, R12, R13, R15
 ;================================================
 Printf:
 	mov r14, rsp		; R14 = RSP
@@ -171,12 +171,13 @@ Printf:
 	add r10, rdx
 	inc r10
 
+	xor r12, r12
 	mov r12b, [r10]
 
 	cmp r12b, '%'
 	je .percent
 
-	jmp [ConvSpecersJumpTable + (r12b - 'b') * 8]
+	jmp [ConvSpecersJumpTable + (r12 - 'b') * 8]
 
 .exit:
 	mov rsi, r10
