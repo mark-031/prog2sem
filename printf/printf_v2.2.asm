@@ -280,7 +280,7 @@ Printf:
 section .data
 
 Msg	db 'Printf: Just test %b %o %h %%%c %s ', 10, 'My_num = %d', 10, 0x00
-MsgModel db 'Model:  JustTest 101 40 EDA %k [SUBSTRING] ', 10, "My_num = 481516", 10, 0x00
+MsgModel db 'Model:  JustTest 101 40 EDA %%k [SUBSTRING] ', 10, "My_num = 481516", 10, 0x00
 
 SubMsg	db '[SUBSTRING]', 0x00
 
