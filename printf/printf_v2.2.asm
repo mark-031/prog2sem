@@ -39,6 +39,10 @@ _start:
 	mov r10, Msg
 
 	printf 5, 32, 3802, 'k', SubMsg, 481516
+	
+	mov r10, MsgModel
+
+	printf
 
 	mov rax, 0x3C
 	xor rdi, rdi
@@ -275,7 +279,8 @@ Printf:
 
 section .data
 
-Msg	db 'Just test %b %o %h %%%c %s <12>', 10, 'My_num = %d', 10, 0x00
+Msg	db 'Printf: Just test %b %o %h %%%c %s ', 10, 'My_num = %d', 10, 0x00
+MsgModel db 'Model:  JustTest 101 40 EDA %k [SUBSTRING] ', 10, "My_num = 481516", 10, 0x00
 
 SubMsg	db '[SUBSTRING]', 0x00
 
