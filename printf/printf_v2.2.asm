@@ -171,19 +171,12 @@ Printf:
 	add r10, rdx
 	inc r10
 
-	xor r12, r12
+	mov r12b, [r10]
 
-;while([R10] != [R12])
-.convSpecSearch:
-	mov bl, [PrintfConvSpecers + r12]
-	cmp bl, [r10]
-	jne .nextConvSpec
+	cmp r12b, '%'
+	je .percent
 
-	jmp [ConvSpecersJumpTable + r12 * 8]
-
-.nextConvSpec:
-	inc r12
-	jmp .convSpecSearch
+	jmp [ConvSpecersJumpTable + (r12b - 'b') * 8]
 
 .exit:
 	mov rsi, r10
@@ -288,5 +281,12 @@ Nums	db '0123456789ABCDEF'
 
 NumBuffer times NumBufferSize db '0'
 
-PrintfConvSpecers	db 'bohs%dc'
-ConvSpecersJumpTable	dq Printf.b, Printf.o, Printf.h, Printf.s, Printf.percent, Printf.d, Printf.c
+ConvSpecersJumpTable	dq Printf.b
+			dq Printf.c
+			dq Printf.d
+			times ('h' - 'd' - 1) dq 0
+			dq Printf.h
+			times ('o' - 'h' - 1) dq 0
+			dq Printf.o
+			times ('s' - 'o' - 1) dq 0
+			dq Printf.s
