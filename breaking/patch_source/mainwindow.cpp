@@ -40,7 +40,7 @@ void MainWindow::on_chooseFile_clicked()
         return;
     }
 
-    char* filedata = new char[filesize];
+    char* filedata = new char[filesize]();
 
     if(file.read(filedata, filesize) != filesize) {
         file.close();
